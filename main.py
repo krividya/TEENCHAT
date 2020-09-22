@@ -1,141 +1,187 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-from flask_pymongo import PyMongo
-from datetime import datetime, timedelta, date
-import datetime
-import requests, json
-import os
+a = [
+    '- Trouble Breathing', '- Persistent pain', '- Pressure in the chest',
+    '- New confusion', '- Inability to wake or stay awake',
+    '- Bluish lips or face'
+]
+b = [
+    '- Fever of 100F (37.8 C) or above'
+    '- Trouble breathing',
+    '- Possible fever symptoms: alternating chills and sweating',
+    '- Shortness of breath', '- Severe wheezing',
+    '- Chills or repeated shaking with chills', '- Muscle or body aches',
+    '- Sore throat', '- Loss of smel or taste, or change in taste',
+    '- Nausea, vomiting, or diarrhea', '- Headache'
+]
+c = ['- Shared a home', '- Been within 6 feet of the person for at least 5 minutes', '- Got sneezed on or coughed', '- Shared eating or drinking utensils or other items', '- Hugged or kissed or come into close contact']
+d = ['- Wash your hands often', '- Avoid close contact', '- Always wear your mask in public', '- Cover your coughs and sneezes', '- Clean and disinfect regularly']
 
-app = Flask('app')
-app.debug = True
-app.secret_key = os.environ.get("APP_SECRET")
+print("Hello, my name is Ruby! I am your personal healthcare assistant!")
+print()
+name = input("What is your name? \n \n")
+print()
+print(
+    "Hello " + name +
+    ", I will just ask you a few questions to see if you need to be tested for COVID-19. Is that okay?"
+)
+print()
+answer = input()
+code = "maybe"
+while (code == "maybe"):
+    if (answer == "no"):
+        print()
+        print("Okay, thank you for your time!")
+        code = "no";
+    if (answer == "yes"):
+        print()
+        print("Do you have any of these emergency signs:")
+        print()
+        print(*a, sep="\n")
+        print()
+        answer1 = input()
+        if (answer1 == "yes"):
+          print()
+          print(
+            "I suggesst that you immediately seek medical attention and let them know that you may have COVID-19."
+        )
+          code = "no";
+        if (answer1 == "no"):
+          print()
+          print(
+            "Did you have any of these types of contact with someone that is confirmed with COVID-19:"
+        )
+          print()
+          print(*c, sep="\n")
+          print()
+          passcode = "no";
+          answer2 = input()
+          if(answer2 == "no"):
+           print()
+           print(
+                "Okay, Did you show any of these symptoms in the last 48 hours:"
+            )
+           print()
+           print(*b, sep="\n")
+           print()
+           answer3 = input()
+           if (answer3 == "no" and passcode == "no"):
+              print()
+              print(
+                "Okay, your responses indicate that you do not need to get tested for COVID-19. You are safe!" )
+              print()
+              print(
+                    "A quick reminder on how to stay safe during this pandemic: ")
+              print()
+              print(*d, sep="\n")
+              print()
+              code= "no";
+           if (answer3 == "yes"):
+                print()
+                print(
+                "How many of these symptoms did you face in the last 48 hours?"
+            )
+                print();
+                number = input();
+                number = int(number);
+                if (number == 1 or number == 0):
+                  if(passcode =='no'):
+                     print (
+                    "You do not seem to be having multiple of these symptoms. This could mean that you do not have COVID. However, you can choose to get tested, just to be safe that it is not COVID. "
+                     )
+                     print()
+                     print(
+                    "A quick reminder on how to stay safe during this pandemic: ")
+                     print()
+                     print(*d, sep="\n")
+                     print()
+                     code = "no";
 
-try:
-    app.config["MONGO_URI"] = os.environ.get("DBURI")
-    mongo = PyMongo(app)
-    print("connected!")
-except:
-    print("Cannot connect")
+                if (number >1):
+                  print()
+                  print(
+                      "Since you seem to be having multiple symptoms, I recommend that you go get tested for COVID to be safe. Please Schedule an appointment with your medical professional to get tested just to be safe."
+                  )
+                  print();
+                  print(
+                    "A quick reminder on how to stay safe during this pandemic: " )
+                  print()
+                  print(*d, sep="\n")
+                  print()
+                  code = "no";
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-  if request.method == 'GET':
-    session.pop('username', None)
-    print("User logged out")
-    return render_template("login.html")
-  else:
-    email = request.form.get('email')
-    password = request.form.get('password')
-    db_info = mongo.db.user.find({})
-    success = False
-    for user in db_info: 
-      if (email == user["email"] and password == user["p"]):
-        success = True 
-        session['username'] = user["username"]
-        print(session['username'])
-        return redirect(url_for('index', user=user["username"]))
-    else:
-      message = "Invalid credentials"
-      return redirect(url_for('login'))    
+          if (answer2 == "yes" or answer2 == "maybe"):
+            passcode = "yes"
+            print()
+            print(
+                "Okay, Did you show any of these symptoms in the last 48 hours:"
+            )
+            print()
+            print(*b, sep="\n")
+            print()
+            answer4 = input()
+           
+            if(answer4 == "no" and passcode == "yes"):
+               print()
+               print("Even though you do not show any of the symptoms, but you have come into contact with a person who has COVID-19, I suggest you get tested for COVID.");
+               print();
+               print("A quick reminder on how to keep yourself safe during this pandemic. ");
+               code = "no";
+            if (answer4 == "yes"):
+              print()
+              print(
+                "How many of these symptoms did you face in the last 48 hours?"
+            )
+              print();
+              number = input();
+              number = int(number);
+              if (number == 1 or number == 0):
+                  if(passcode == "yes"):
+                    print()
+                    print(
+                     "Even though you do not show any symptoms, you did come into contact with a person who has COVID. So I recommend that you get tested for COVID-19. "
+                )
+                    print()
+                    print(
+                    "A quick reminder on how to stay safe during this pandemic: "
+                )
+                    print()
+                    print(*d, sep="\n")
+                    print()
+                    code = "no";
+                  if(passcode =='no'):
+                     print (
+                    "You do not seem to be having multiple of these symptoms. This could mean that you do not have COVID. However, you can choose to get tested, just to be safe that it is not COVID. "
+                     )
+                     print()
+                     print(
+                    "A quick reminder on how to stay safe during this pandemic: ")
+                     print()
+                     print(*d, sep="\n")
+                     print()
+                     code = "no";
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-  if request.method == 'GET':
-    return render_template("register.html")
-  else: 
-    name = request.form.get('name')
-    username = request.form.get('username')
-    email = request.form.get('email')
-    password1 = request.form.get('password1')
-    password2 = request.form.get('password2')
-    email_db = mongo.db.user.find({})
-    success = True
-    
-    for user in email_db:
-      if email == user["email"]:
-        message = "Email already exists. Please try again."
-        print(message)
-        success = False
-        return redirect(url_for('register'))
-      elif username == user["username"]:
-        message = "Username already exists. Please try again."
-        print(message)
-        success = False
-        return redirect(url_for('register'))
-      elif password1 != password2: 
-        message = "Passwords do not match. Please try again."
-        print(message)
-        success = False
-        return redirect(url_for('register')) 
-    
-    if success == True:
-      mongo.db.user.insert_one({"name":name, "username":username, "email":email, "p":password1})
-      session["username"] = username
-      return redirect(url_for('index', user=username))
-
-@app.route('/logout')
-def logout():
-  session.pop('username', None)
-  print("User Logged out")
-  return redirect(url_for('index_1'))
-
-@app.route('/home/<user>', methods=['GET', 'POST'])
-def index(user):
-  if request.method == 'GET':
-    return render_template("index.html", user=user)
-
-@app.route("/")
-def index_1():
-  return render_template("home.html")
-
-@app.route('/chat/<user>', methods=['GET', 'POST'])
-def chat(user): 
-  if request.method == 'GET':
-    user_list = mongo.db.user.find({})
-    user_list1 = mongo.db.user.find({})
-    return render_template("chat.html", user_list=user_list, user_list1=user_list1, user=user)
-  else:
-    user_selected = request.form.get('user')
-    print(user_selected)
-    return redirect(url_for('chat2', user=user, user2=user_selected))
-
-@app.route('/chat/<user>/<user2>', methods=['GET', 'POST'])
-def chat2(user, user2):
-  if request.method == 'GET':
-    messages = mongo.db.message.find({})
-    return render_template('chat2.html', user=user, user2=user2, messages=messages)
-  else:
-    message = request.form.get('message')
-    user_from = user
-    user_to = user2
-    times = datetime.datetime.now()
-    mongo.db.message.insert_one({"user_from":user_from, "user_to":user_to, "message":message, "time":times})
-    return redirect(url_for('chat2', user=user_from, user2=user_to))
-
-@app.route('/learn/<user>', methods=['GET', 'POST'])
-def learn(user):
-  if request.method == 'GET':
-    states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", 
-    "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", 
-    "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", 
-    "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
-    data = mongo.db.state.find({})
-    return render_template("learn.html", states=states, data=data, user=user)
-
-@app.route('/creators/<user>', methods=['GET'])
-def creators(user):
-  if request.method == 'GET':
-    return render_template("creators.html", user=user)
-
-@app.route('/getdata', methods=['GET', 'POST'])
-def api():
-  data = requests.get("https://covidtracking.com/api/states")
-  # rest = res.json()
-  statelist = json.loads(data.content.decode("utf-8"))
-  for record in statelist:
-    print(record)
-    mongo.db.state.update_one(
-      {"state":record["state"]}, 
-      {"$set":{"state":record["state"], "date":record["date"], "positive":record["positive"]}}, upsert=True)
-  return render_template("learn.html")
-
-app.run(host='0.0.0.0', port=8080)
+              if (number >1):
+                if(passcode == "yes"):
+                  print()
+                  print(
+                     "Since you seem to be having multiple symptoms and came in contact with a person who has COVID, I recommend you get tested for COVID. Please schedule for an appointment with your medical professional to get tested."
+                )
+                  print();
+                  print(
+                    "A quick reminder on how to stay safe during this pandemic: "
+                )
+                  print()
+                  print(*d, sep="\n")
+                  print()
+                  code = "no";
+                if(passcode == "no"):
+                  print()
+                  print(
+                      "Since you seem to be having multiple symptoms, I recommend that you go get tested for COVID to be safe. Please Schedule an appointment with your medical professional to get tested just to be safe."
+                  )
+                  print();
+                  print(
+                    "A quick reminder on how to stay safe during this pandemic: " )
+                  print()
+                  print(*d, sep="\n")
+                  print()
+                  code = "no";
