@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Learn
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light color navsize">
+		<a class="navbar-brand" href="{{ url_for('index_1') }}"><img src="https://osk0dw.bl.files.1drv.com/y4m8r8n49qzs4vuZJjBRasChOo0e-b4XvKSo9VPWDioKmMtXHMK8Q4mEP_jfSu_7AwKeulY2WIs500iv12ETySTrP1JpotsEu_fwwNr1ZmIE7GfMcJ_o8R7Vk64VtczVVYwf1i_jy2OIrrP4UHwoDblJOEoe4WfgKT13hRFugO13aV3cMLaECwoNqz5OersTnjUnL6djmVCXKcpvH-slPoXiQ?width=1128&height=186&cropmode=none" width="35%"/></a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item linksize" href="{{ url_for('index', user=user) }}">HOME</a>
+          <a class="nav-item linksize" href="{{ url_for('chat', user=user) }}">CHAT</a>
+          <a class="nav-item linksize active" href="{{ url_for('learn', user=user) }}">DONATE</a>
+          <a class="nav-item linksize" href="{{ url_for('creators', user=user) }}">CREATORS</a>
+          <a class="nav-item linksize" href="{{ url_for('logout') }}">LOGOUT</a>
+        </div>
+      </div>
+</nav>
+{% endblock %}
+
+{% block body %} <br>
+
+<div class="container">
+  
+  <div class="row">
+    <section class="col">
+      <h2> <center> Current Cases</center></h2> <br>
+      <div>
+        <table class="table table-striped text-center">
+          <thead>
+            <tr>
+              <th scope="col">Last updated on (YYYY-MM-DD)</th>
+              <th scope="col">Number of Positive Cases</th>
+              <th scope="col">State/Territory of U.S.</th>
+            </tr>
+          </thead>
+          <tbody>
+        {% for s in data %}
+            <tr>
+              {% set date = s["date"] | string() %}
+              {% set date1 = date.split() %}
+              {% for a in date1 %}
+              <td>{{ a[0] }}{{ a[1] }}{{ a[2] }}{{ a[3] }}-{{ a[4] }}{{ a[5] }}-{{ a[6] }}{{ a[7] }}</td>
+              {% endfor %}
+              <td>{{ s["positive"] }}</td>
+              <td>{{ s["state"] }}</td>
+            </tr>
+        {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <article class="col">
+      <h2> <center> Contribute Time/Money </center></h2> <br>
+      <table class="table table-striped text-center">
+        <thead>
+          <th scope="col">Task</th>
+          <th scope="col">Link</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Donate Face Masks</td>
+            <td><a href="https://www.deaconess.com/How-to-make-a-Face-Mask/Mask-Donations"><i class="fas fa-hand-holding-usd fa-2x"></i></a></td>
+          </tr>
+          <tr>
+            <td>Plasma Donations From Recovered COVID-19 Patients</td>
+            <td><a href="https://www.redcrossblood.org/donate-blood/dlp/plasma-donations-from-recovered-covid-19-patients.html"><i class="fas fa-hand-holding-usd fa-2x"></i></a></td>
+          </tr>
+          <tr>
+            <td>Writing Letters to the Elderly</td>
+            <td><a href= "https://loveforourelders.org/letters"><i class="fas fa-hand-holding-usd fa-2x"></i></a></td>
+          </tr>
+          <tr>
+            <td>Donate to Food Banks</td>
+            <td><a href= "https://loveforourelders.org/letters"><i class="fas fa-hand-holding-usd fa-2x"></i></a></td>
+          </tr>
+          <tr>
+            <td>Centers for Disease Control and Prevention</td>
+            <td><a href= "https://secure.directrelief.org/site/Donation2?df_id=2924&mfc_pref=T&2924.donation=form1"><i class="fas fa-hand-holding-usd fa-2x"></i></a></td>
+          </tr>
+          <tr>
+            <td>Meals on wheels</td>
+            <td><a href= "https://ams.mealsonwheelsamerica.org/eweb/DynamicPage.aspx?WebCode=covid19donate&site=mowa&CampCode=COVID-19EmergencyResponseCamp&AplCode=2020ER-POP-UP-COVID-19&_ga=2.72095898.841343089.1584807077-1999536843.1584807077"><i class="fas fa-hand-holding-usd fa-2x"></i></a></td>
+          </tr>
+          <tr>
+            <td>Charidy: Crowdfunding</td>
+            <td><a href= "https://give4cdcf.org/"><i class="fas fa-hand-holding-usd fa-2x"></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+
+</div>
+
+<!-- 
+<div id="chart_div"></div> -->
+{% endblock %}

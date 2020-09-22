@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block body %} <br>
+<style> 
+body { 
+  font-family: 'Trebuchet MS';
+}
+</style>
+<div class="container">
+  {{user}}
+  <h1> <center>WELCOME TO TEENCHAT!</h1> <br>
+  <h3> <center> Our Website </h3>
+  <p> <center>  We are a website that offers a chat room for teens who have contracted COVID-19 to connect with other teens in a similar situation so that they can feel supported and comforted during these difficult times. Through these chat rooms, they are also able to make new connections  if they choose to. The chat rooms are completely anonymous so that means that we only display the username that you choose when you register yourself.  Also, we give you the choice to decide who you want to chat with by providing a list of usernames that have registered with us at the time. Hope you enjoy our website! </p> <br>
+  <h3> <center> Our Inspiration </h3>
+<p> We were inspired to create this website because there are many teens that have contracted COVID-19 in the United States which has caused them to quarantine themselves. This caused many to feel lost and lonely as they are not able to interact with a lot of people. We thought that by creating a chat room where teens with COVID could connect with each other and discuss how they are feeling, they could gain more strength to fight through the disease. 
+</p>
+<p> <center> - <em> Kriti Vidya and Atharva Kashyap </em> </p> <br>
+<br>
+<div class="health">
+      <h5> If you are not sure whether you should get checked for COVID, we suggest you use our chatbot below to check! </h5> <br>
+      <div class="chatbox"><iframe height="500px" width="60%" src="https://repl.it/@krividya/ChatBot?lite=true&outputonly=1" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe></div>
+    </div><br> 
+    <br>
+    <br>
+    <br>
+
+
+
+
+</div>
+{% endblock %}

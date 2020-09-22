@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chat Room
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light color navsize">
+		<a class="navbar-brand" href="{{ url_for('index_1') }}"><img src="https://osk0dw.bl.files.1drv.com/y4m8r8n49qzs4vuZJjBRasChOo0e-b4XvKSo9VPWDioKmMtXHMK8Q4mEP_jfSu_7AwKeulY2WIs500iv12ETySTrP1JpotsEu_fwwNr1ZmIE7GfMcJ_o8R7Vk64VtczVVYwf1i_jy2OIrrP4UHwoDblJOEoe4WfgKT13hRFugO13aV3cMLaECwoNqz5OersTnjUnL6djmVCXKcpvH-slPoXiQ?width=1128&height=186&cropmode=none" width="35%"/></a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item linksize" href="{{ url_for('index', user=user) }}">HOME</a>
+          <a class="nav-item linksize active" href="{{ url_for('chat', user=user) }}">CHAT</a>
+          <a class="nav-item linksize" href="{{ url_for('learn', user=user) }}">DONATE</a>
+          <a class="nav-item linksize" href="{{ url_for('creators', user=user) }}">CREATORS</a>
+          <a class="nav-item linksize" href="{{ url_for('logout') }}">LOGOUT</a>
+        </div>
+      </div>
+</nav>
+{% endblock %}
+<br>
+<style> 
+body { 
+  font-family: 'Trebuchet MS';
+}
+</style>
+{% block body %}
+
+<div class="container">
+  <br><h2> <center> Welcome to the Chat Room </center></h2>
+  <br><div class="row">
+    <section class="col">
+      <h5> <center> Select a user to converse with: </center></h5>
+      <form action="{{ url_for('chat', user=user) }}"  method="POST">
+        <div class="form-group">
+          <select name="user" class="form-control" id="user">
+            <option selected disabled>---Select user---</option>
+            {% for u in user_list %}
+            {% if u['username'] != user %}
+            <option name="name" id="name" value="{{ u['username'] }}">{{ u['username'] }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <button class="btn btn-primary col-3" type="submit">Submit</button>
+      </form>
+    </section>
+    <article class="col-5">
+      <h5> <center> Your personal details: </center></h5>
+      {% for i in user_list1 %}
+      {% if i['username'] == user %}
+      <input class="form-control m-3" type="text" placeholder="Your username: {{ i['username'] }}" readonly>
+      <input class="form-control m-3" type="text" placeholder="Your name: {{ i['name'] }}" readonly>
+      <input class="form-control m-3" type="text" placeholder="Your email: {{ i['email'] }}" readonly>
+      {% endif %}
+      {% endfor %}
+      <small class="form-text text-muted"><center>*We'll never share your name or email with anyone else.</center></small>
+    </article>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>{% block title %} {% endblock %}</title>
+	<link href="static/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	 crossorigin="anonymous">
+  
+  <link rel="stylesheet" type="text/css" href="testing.css">
+	<link rel="stylesheet" type="text/css" href="css/all.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+	{% block head %}
+
+  {% endblock %}
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+		.color {
+			background-color: #bbeaff;
+		}
+
+		.logo {
+			padding-bottom: 5px;
+      float: left;
+			margin-left:15%;
+			margin-right: 30%;
+			padding-top: 5px;
+      padding-left: 30px;
+		}
+
+		.navsize {
+			height: 60px;
+			width: 100%;
+			/* white-space: nowrap;
+			padding-left: 0;
+			padding-top: 10px;
+			padding-right: 0px;
+			padding-bottom: 0px;
+			margin: 0px; */
+		}
+
+		.linksize {
+			float: left;
+			margin-left: 0px;
+			font-family: 'Lato', sans-serif;
+			font-size: 18px;
+			margin-right: 50px;
+			margin-top: 10px;
+			color: white;
+			padding-right: 5px;
+      margin-bottom: 0px;
+      padding-left: 20px;
+      padding-top: 0px;
+      		}
+
+		.linksize:hover {
+			color: rgb(0,0,0);
+      text-decoration: none;
+		}
+
+		.footer {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			background-color: #818BD1;
+			color: white;
+			text-align: center;
+			padding-top: 10px;
+		}
+
+		.speech-bubble {
+			position: relative;
+			background: #189DE4;
+			border-radius: .4em;
+			color: rgb(255, 255, 255);
+			margin: 10px;
+			padding-left: 10px;
+		}
+
+		.speech-bubble_you {
+			position: relative;
+			background: #818BD1;
+			border-radius: .4em;
+			color: rgb(255, 255, 255);
+			margin: 10px;
+			padding-left: 10px;
+		}
+    body { 
+      font-family: 'Trebuchet MS';
+    }
+     h6 {
+      margin-left: 70%;
+      margin-right: 0;
+    } 
+	</style>
+</head>
+
+<body>
+  {% block nav %}
+	<nav class="navbar navbar-expand-lg navbar-light color navsize">
+		<a class="navbar-brand" href="{{ url_for('index_1') }}"><img src="https://osk0dw.bl.files.1drv.com/y4m8r8n49qzs4vuZJjBRasChOo0e-b4XvKSo9VPWDioKmMtXHMK8Q4mEP_jfSu_7AwKeulY2WIs500iv12ETySTrP1JpotsEu_fwwNr1ZmIE7GfMcJ_o8R7Vk64VtczVVYwf1i_jy2OIrrP4UHwoDblJOEoe4WfgKT13hRFugO13aV3cMLaECwoNqz5OersTnjUnL6djmVCXKcpvH-slPoXiQ?width=1128&height=186&cropmode=none" class="pt-2" width="120%"/></a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item linksize" href="{{ url_for('index_1') }}">HOME</a>
+          <a class="nav-item linksize" href="{{ url_for('login') }}">LOGIN</a>
+          <a class="nav-item linksize" href="{{ url_for('register')}}">REGISTER</a>
+        </div>
+      </div>
+    </nav>
+  {% endblock %}
+  
+  
+  {% block body %}
+
+  {% endblock %}
+   <div class="footer">
+  <p>Have Questions or Comments? Contact us: <a href="mailto:covid.teenchat@outlook.com" style="color:#000000;"><span style="color: rgb(255, 255, 255);"><i class="fas fa-envelope fa-lg"></i></span></a></p>
+  </div>
+</body>
+</html>

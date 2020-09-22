@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light color navsize">
+		<a class="navbar-brand" href="{{ url_for('index_1') }}"><img src="https://osk0dw.bl.files.1drv.com/y4m8r8n49qzs4vuZJjBRasChOo0e-b4XvKSo9VPWDioKmMtXHMK8Q4mEP_jfSu_7AwKeulY2WIs500iv12ETySTrP1JpotsEu_fwwNr1ZmIE7GfMcJ_o8R7Vk64VtczVVYwf1i_jy2OIrrP4UHwoDblJOEoe4WfgKT13hRFugO13aV3cMLaECwoNqz5OersTnjUnL6djmVCXKcpvH-slPoXiQ?width=1128&height=186&cropmode=none" width="35%"/></a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item linksize" href="{{ url_for('index', user=user) }}">HOME</a>
+          <a class="nav-item linksize active" href="{{ url_for('chat', user=user) }}">CHAT</a>
+          <a class="nav-item linksize" href="{{ url_for('learn', user=user) }}">DONATE</a>
+          <a class="nav-item linksize" href="">CREATORS</a>
+          <a class="nav-item linksize" href="{{ url_for('logout') }}">LOGOUT</a>
+        </div>
+      </div>
+</nav>
+{% endblock %}
+
+{% block title %}
+  chatting with..{{ user2 }}
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <center><h6 class="m-3"><strong>{{ user }}</strong> is chatting with.. <strong>{{ user2 }}</strong></h6></center>
+    <div class="row">
+      <section class="col">
+      {% for message in messages %}
+      {% if message["user_from"] == user %}
+      <div class="speech-bubble_you"><i class="fas fa-reply"></i>
+        <strong> You: </strong>{{ message["message"] }} at {{ message["time"] }}
+      </div>
+      {% elif message["user_to"] == user %}
+      <div class="speech-bubble"><i class="fas fa-reply fa-rotate-180"></i><strong> {{ user2 }}: </strong>{{ message["message"] }} at {{ message["time"] }}</div>
+      {% endif %}
+      {% endfor %}
+      </section>
+      <article class="col-5 mt-5">
+        <form action="{{ url_for('chat2', user=user, user2=user2) }}" method="POST">
+          <div class="form-group">
+            <input class="form-control" autocomplete="off" type="text" id="message" name="message" placeholder="Enter Message"/>
+          </div>
+          <button class="btn btn-primary col-3" type="submit">Send</button>
+          <small class="form-text text-muted"><center>*Never share your personal contact information with anyone else.</center></small>
+        </form>
+      </article>
+    </div>
+  </div>
+{% endblock %}
